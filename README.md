@@ -1,3 +1,6 @@
+![image](https://github.com/Alina-02/PokeApp/assets/116342238/c2579517-bdb7-475e-8b64-3e4cc7bb9c61)
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
