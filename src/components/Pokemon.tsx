@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-import { Box, Card, IconButton, Stack, Typography } from "@mui/material"
+import { Card, IconButton, Stack, Typography } from "@mui/material"
 import CatchingPokemonIcon from '@mui/icons-material/CatchingPokemon'
 
 import { AppDispatch, RootState } from "../redux/store"
@@ -19,6 +19,14 @@ interface PokemonPropTypes {
     weight_p: number,
     height_p: number,
     types_p: []
+}
+
+type type = {
+    name: string
+}
+
+type typeList = {
+    type: type
 }
 
 const enum TabsPokemon {
@@ -51,7 +59,7 @@ const Pokemon: React.FC<PokemonPropTypes>  = ({id_p, image_p, name_p, weight_p, 
     //set the types list
     const getTypesList = () => { 
         let t = ""
-        types_p.map((value: type) => {
+        types_p.map((value: typeList) => {
             t += value.type.name + ', '
         })
         setTypes(t)
@@ -64,10 +72,8 @@ const Pokemon: React.FC<PokemonPropTypes>  = ({id_p, image_p, name_p, weight_p, 
     }
 
     useEffect(() => { 
-
         getTypesList();
         setFavouriteButton();
-
      }, []);
 
     const handleFavouriteButton = () => {
@@ -81,18 +87,15 @@ const Pokemon: React.FC<PokemonPropTypes>  = ({id_p, image_p, name_p, weight_p, 
         }
 
         if(!favourite){
-            console.log("entra en gris")
             setFavourite(true)
             dispatch(addFavouritePokemon(pokemon))
         }else{
-            console.log("entra en dorado")
             setFavourite(false)
             dispatch(removeFavouritePokemon(id_p))
         }
     }
 
 
-    //https://github.com/duiker101/pokemon-type-svg-iconsput sgv r
 
     return (
         <Stack sx={{backgroundColor:'#ef233c', 
@@ -106,7 +109,7 @@ const Pokemon: React.FC<PokemonPropTypes>  = ({id_p, image_p, name_p, weight_p, 
                         justifyContent:"space-between", 
                         flexDirection:'row-reverse'}}>
                 <IconButton size="large" onClick={() => handleFavouriteButton()}>
-                    <CatchingPokemonIcon sx={{fontSize:40, 
+                    <CatchingPokemonIcon sx={{fontSize:45, 
                                     ...(favourite && {
                                         color: '#ffa600',
                                       }),
@@ -116,7 +119,7 @@ const Pokemon: React.FC<PokemonPropTypes>  = ({id_p, image_p, name_p, weight_p, 
                                     }}/>
                 </IconButton>
                 <Stack direction='row' sx={{width: 'inherit', marginRight: 1}}>
-                    {types_p.slice(0).reverse().map((value) => {
+                    {types_p.slice(0).reverse().map((value: typeList) => {
                         return <Card key={id_p + value.type.name} 
                                     sx={{backgroundColor: 'white', 
                                             minWidth: '9%', 

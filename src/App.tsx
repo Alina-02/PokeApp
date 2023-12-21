@@ -1,4 +1,4 @@
-import { Box, Stack, Tab, Tabs, ThemeProvider, Typography, createTheme, useTheme} from '@mui/material'
+import { Box, Stack, Tab, Tabs, Typography } from '@mui/material'
 import PokemonList from './components/PokemonList'
 import FavouritePokemonList from './components/FavouritePokemonList'
 import { useState } from 'react';
@@ -12,8 +12,7 @@ const enum TabsPokemon {
 
 
 function App() {
-  const [currentTab, setCurrentTab] = useState('all');
-  const [favouritePokemon, setFavouritePokemon] = useState([])
+  const [currentTab, setCurrentTab] = useState('all')
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setCurrentTab(newValue);
