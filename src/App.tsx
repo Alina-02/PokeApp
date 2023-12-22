@@ -18,6 +18,11 @@ function App() {
     setCurrentTab(newValue);
   };
 
+  
+    React.useEffect(() => {
+      document.title = 'PokeApp';
+    }, []);
+
 
   return (
     <Box sx={{ justifyContent:'center', margin:5, minWidth: '450px'}}>
@@ -26,11 +31,11 @@ function App() {
                     borderTopRightRadius: 10,
                 }}>
       <Typography variant='h1' 
-                  style={{textAlign: 'center', 
+                  sx={{textAlign: 'center', 
                           backgroundColor:'#ef233c', 
                           borderTopLeftRadius:10, 
                           borderTopRightRadius: 10,
-                          padding: 20,
+                          padding: '50px',
                           }}>
           PokeApp
         </Typography>

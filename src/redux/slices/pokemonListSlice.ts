@@ -50,11 +50,20 @@ export const pokemonListSlice = createSlice({
       state.favouritePokemons = state.favouritePokemons.filter((pokemon) => pokemon.id !== action.payload)
       
       //state.favouritePokemons.splice(state.favouritePokemons.findIndex((pokemon) => pokemon.id === action.payload), 1)
+    },
+    toggleFavouritePokemon: (state, action: PayloadAction<PokemonState>) => {
+      const fav = state.favouritePokemons.filter((pokemon) => pokemon.id == action.payload.id)
+      console.log(fav.length)
+      if(fav.length > 0){ //in favourites
+        state.favouritePokemons = state.favouritePokemons.filter((pokemon) => pokemon.id !== action.payload.id)
+      }else{ //not in favourites
+        state.favouritePokemons = [...state.favouritePokemons, action.payload]
+      }
     }
   },
 })
 
 //export the actions associated with our reducer and the slice
-export const { addPokemon, addFavouritePokemon, removeFavouritePokemon } = pokemonListSlice.actions
+export const { addPokemon, addFavouritePokemon, removeFavouritePokemon, toggleFavouritePokemon } = pokemonListSlice.actions
 
 export default pokemonListSlice.reducer

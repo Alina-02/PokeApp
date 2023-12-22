@@ -2,16 +2,16 @@ import { Box,  Grid } from "@mui/material";
 import Pokemon from "./Pokemon";
 import { useEffect } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
 import { PokemonType } from  "../types/pokemon.type";
-import { RootState, AppDispatch } from "../redux/store";
+import { AppDispatch } from "../redux/store";
 import { addPokemon } from "../redux/slices/pokemonListSlice";
 import { useAppDispatch } from "../redux/hooks";
+import { useAppSelector } from "../redux/hooks";
 
 
 const PokemonList = () => {
     const dispatch: AppDispatch = useAppDispatch()
-    const pokemonList = useSelector((state:RootState) => state.pokemonList.pokemons)
+    const pokemonList = useAppSelector((state) => state.pokemonList.pokemons)
 
     const getPokemonList = async () => {
         

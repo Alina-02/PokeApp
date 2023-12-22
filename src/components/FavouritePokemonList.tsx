@@ -1,11 +1,10 @@
 import { Box, Grid } from "@mui/material"
 import Pokemon from "./Pokemon";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
 import { PokemonType } from "../types/pokemon.type";
+import { useAppSelector } from "../redux/hooks";
 
 const FavouritePokemonList = () => {
-    const favouritePokemonList = useSelector((state:RootState) => state.pokemonList.favouritePokemons)
+    const favouritePokemonList = useAppSelector((state) => state.pokemonList.favouritePokemons)
 
 
     return (

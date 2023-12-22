@@ -5,10 +5,13 @@ import CatchingPokemonIcon from '@mui/icons-material/CatchingPokemon'
 
 import { AppDispatch, RootState } from "../redux/store"
 import { useAppDispatch } from "../redux/hooks"
-import { addFavouritePokemon } from "../redux/slices/pokemonListSlice";
-import { removeFavouritePokemon } from "../redux/slices/pokemonListSlice"
+import { toggleFavouritePokemon } from "../redux/slices/pokemonListSlice"
 import { PokemonType} from "../types/pokemon.type"
 import { useSelector } from "react-redux"
+
+
+import { TabsPokemon } from "../utils/utils"
+import { getPokemonTypeColor } from "../utils/utils"
 
 
 
@@ -29,24 +32,7 @@ type typeList = {
     type: type
 }
 
-const enum TabsPokemon {
-    FIGHTING = '#C22E28',
-    FIRE = '#EE8130',
-    ROCK = '#B6A136',
-    ELECTRIC = '#F7D02C',
-    GROUND = '#E2BF65',
-    NORMAL = '#A8A77A',
-    BUG = '#A6B91A',
-    GRASS = '#7AC74C',
-    ICE = '#96D9D6',
-    WATER = '#6390F0',
-    FLYING = '#A98FF3',
-    GHOST = '#735797',
-    POISON = '#A33EA1',
-    STEEL = '#B7B7CE',
-    FAIRY = '#D685AD',
-    PSYCHIC = '#F95587', 
-  }
+
 
 
 const Pokemon: React.FC<PokemonPropTypes>  = ({id_p, image_p, name_p, weight_p, height_p, types_p}) => {
@@ -88,10 +74,10 @@ const Pokemon: React.FC<PokemonPropTypes>  = ({id_p, image_p, name_p, weight_p, 
 
         if(!favourite){
             setFavourite(true)
-            dispatch(addFavouritePokemon(pokemon))
+            dispatch(toggleFavouritePokemon(pokemon))
         }else{
             setFavourite(false)
-            dispatch(removeFavouritePokemon(id_p))
+            dispatch(toggleFavouritePokemon(pokemon))
         }
     }
 
@@ -121,7 +107,7 @@ const Pokemon: React.FC<PokemonPropTypes>  = ({id_p, image_p, name_p, weight_p, 
                 <Stack direction='row' sx={{width: 'inherit', marginRight: 1}}>
                     {types_p.slice(0).reverse().map((value: typeList) => {
                         return <Card key={id_p + value.type.name} 
-                                    sx={{backgroundColor: 'white', 
+                                    sx={{ 
                                             minWidth: '9%', 
                                             borderRadius: 40, 
                                             maxHeight: '40px',
@@ -129,48 +115,7 @@ const Pokemon: React.FC<PokemonPropTypes>  = ({id_p, image_p, name_p, weight_p, 
                                             marginLeft: 1,
                                             boxShadow: 3,
                                             border: 1,
-                                            ...(value.type.name == 'grass' && {
-                                                backgroundColor: TabsPokemon.GRASS,
-                                            }),
-                                            ...(value.type.name == 'fire' && {
-                                                backgroundColor: TabsPokemon.FIRE,
-                                            }),
-                                            ...(value.type.name == 'rock' && {
-                                                backgroundColor: TabsPokemon.ROCK,
-                                            }),
-                                            ...(value.type.name == 'water' && {
-                                                backgroundColor: TabsPokemon.WATER,
-                                            }),
-                                            ...(value.type.name == 'bug' && {
-                                                backgroundColor: TabsPokemon.BUG,
-                                            }),
-                                            ...(value.type.name == 'normal' && {
-                                                backgroundColor: TabsPokemon.NORMAL,
-                                            }),
-                                            ...(value.type.name == 'poison' && {
-                                                backgroundColor: TabsPokemon.POISON,
-                                            }),
-                                            ...(value.type.name == 'electric' && {
-                                                backgroundColor: TabsPokemon.ELECTRIC,
-                                            }),
-                                            ...(value.type.name == 'ground' && {
-                                                backgroundColor: TabsPokemon.GROUND,
-                                            }),
-                                            ...(value.type.name == 'fairy' && {
-                                                backgroundColor: TabsPokemon.FAIRY,
-                                            }),
-                                            ...(value.type.name == 'fighting' && {
-                                                backgroundColor: TabsPokemon.FIGHTING,
-                                            }),
-                                            ...(value.type.name == 'psychic' && {
-                                                backgroundColor: TabsPokemon.PSYCHIC,
-                                            }),
-                                            ...(value.type.name == 'ghost' && {
-                                                backgroundColor: TabsPokemon.GHOST,
-                                            }),
-                                            ...(value.type.name == 'flying' && {
-                                                backgroundColor: TabsPokemon.FLYING,
-                                            }),
+                                            backgroundColor: getPokemonTypeColor(value.type.name)
                                             }}>
 
                         </Card>
